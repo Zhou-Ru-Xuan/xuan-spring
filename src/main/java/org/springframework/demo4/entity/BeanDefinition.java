@@ -5,8 +5,8 @@ import org.springframework.testbean.ArgumentValues;
 import org.springframework.testbean.PropertyValues;
 
 public class BeanDefinition {
-    String SCOPE_SINGLETON = "singleton";
-    String SCOPE_PROTOTYPE = "prototype";
+    public static final String SCOPE_SINGLETON = "singleton";
+    public static final String SCOPE_PROTOTYPE = "prototype";
     private boolean lazyInit = false;
     private String[] dependsOn;
     private ArgumentValues constructorArgumentValues;
@@ -22,20 +22,12 @@ public class BeanDefinition {
         this.className = className;
     }
 
-    public String getSCOPE_SINGLETON() {
-        return SCOPE_SINGLETON;
+    public boolean isSingleton() {
+        return SCOPE_SINGLETON.equals(this.scope);
     }
 
-    public void setSCOPE_SINGLETON(String SCOPE_SINGLETON) {
-        this.SCOPE_SINGLETON = SCOPE_SINGLETON;
-    }
-
-    public String getSCOPE_PROTOTYPE() {
-        return SCOPE_PROTOTYPE;
-    }
-
-    public void setSCOPE_PROTOTYPE(String SCOPE_PROTOTYPE) {
-        this.SCOPE_PROTOTYPE = SCOPE_PROTOTYPE;
+    public boolean isPrototype() {
+        return SCOPE_PROTOTYPE.equals(this.scope);
     }
 
     public boolean isLazyInit() {

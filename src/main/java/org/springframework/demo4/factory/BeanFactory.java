@@ -1,12 +1,11 @@
 package org.springframework.demo4.factory;
 
-
 import org.springframework.demo4.exception.BeansException;
 
-public interface BeanFactory {
-    Object getBean(String name) throws BeansException;
+public interface BeanFactory{
+    Object getBean(String beanName) throws BeansException;
 
-    boolean containsBean(String name);
+    Boolean containsBean(String name);
 
     boolean isSingleton(String name);
 
