@@ -16,8 +16,34 @@ public class AServiceImpl implements AService {
         this.level = level;
     }
 
+    public AServiceImpl(String property1, String name, int level) {
+        this.property1 = property1;
+        this.name = name;
+        this.level = level;
+    }
+
+    public String getProperty1() {
+        return property1;
+    }
+
     public void setProperty1(String property1) {
         this.property1 = property1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void sayHello() {

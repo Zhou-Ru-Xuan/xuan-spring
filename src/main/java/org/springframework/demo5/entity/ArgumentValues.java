@@ -1,4 +1,4 @@
-package org.springframework.testbean;
+package org.springframework.demo5.entity;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class ArgumentValues {
     public ArgumentValues() {
     }
 
-    private void addArgumentValue(Integer key, ArgumentValue newValue) {
+    public void addArgumentValue(Integer key, ArgumentValue newValue) {
         this.indexedArgumentValues.put(key, newValue);
     }
 

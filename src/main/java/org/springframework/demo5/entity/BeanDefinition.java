@@ -1,4 +1,4 @@
-package org.springframework.demo4.entity;
+package org.springframework.demo5.entity;
 
 
 public class BeanDefinition {

@@ -1,4 +1,4 @@
-package org.springframework.testbean;
+package org.springframework.demo5.entity;
 
 public class ArgumentValue {
     private Object value;
