@@ -1,0 +1,68 @@
+@startuml
+class org.springframework.demo3.exception.BeansException {
+}
+class org.springframework.demo3.reader.XmlBeanDefinitionReader {
+~ BeanFactory beanFactory
++ void loadBeanDefinitions(Resource)
+}
+class org.springframework.demo3.ClassPathXmlApplicationContext {
+~ BeanFactory beanFactory
+~ XmlBeanDefinitionReader reader
+~ Resource resource
++ Object getBean(String)
++ Boolean containsBean(String)
++ void registerBean(String,BeanDefinition)
+}
+class org.springframework.demo3.factory.SimpleBeanFactory {
+- Map<String,BeanDefinition> beanDefinitions
++ Object getBean(String)
++ Boolean containsBean(String)
++ void registerBean(String,BeanDefinition)
+}
+interface org.springframework.demo3.factory.BeanFactory {
+~ Object getBean(String)
+~ Boolean containsBean(String)
+~ void registerBean(String,BeanDefinition)
+}
+class org.springframework.demo3.entity.BeanDefinition {
+- String id
+- String className
++ String getId()
++ void setId(String)
++ String getClassName()
++ void setClassName(String)
+}
+interface org.springframework.demo3.factory.SingletonBeanRegistry {
+~ void registerSingleton(String,Object)
+~ Object getSingleton(String)
+~ boolean containsSingleton(String)
+~ String[] getSingletonNames()
+}
+class org.springframework.demo3.factory.DefaultSingletonBeanRegistry {
+# List<String> beanNames
+# Map<String,Object> singletons
++ void registerSingleton(String,Object)
++ Object getSingleton(String)
++ boolean containsSingleton(String)
++ String[] getSingletonNames()
+# void removeSingleton(String)
+}
+class org.springframework.demo3.resource.ClassPathXmlResource {
+~ Document document
+~ Element rootElement
+~ Iterator<Element> elementIterator
++ boolean hasNext()
++ Object next()
+}
+interface org.springframework.demo3.resource.Resource {
+}
+
+
+org.springframework.demo3.exception.Exception <|-- org.springframework.demo3.exception.BeansException
+org.springframework.demo3.factory.BeanFactory <|.. org.springframework.demo3.ClassPathXmlApplicationContext
+org.springframework.demo3.factory.BeanFactory <|.. org.springframework.demo3.factory.SimpleBeanFactory
+org.springframework.demo3.factory.DefaultSingletonBeanRegistry <|-- org.springframework.demo3.factory.SimpleBeanFactory
+org.springframework.demo3.factory.SingletonBeanRegistry <|.. org.springframework.demo3.factory.DefaultSingletonBeanRegistry
+org.springframework.demo3.resource.Resource <|.. org.springframework.demo3.resource.ClassPathXmlResource
+java.util.Iterator <|-- org.springframework.demo3.resource.Resource
+@enduml
