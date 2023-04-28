@@ -1,4 +1,5 @@
-package org.springframework.demo4.entity;
+package org.springframework.demo7.entity;
+
 
 import java.util.*;
 
@@ -11,6 +12,7 @@ public class ArgumentValues {
 
     public void addArgumentValue(Integer key, ArgumentValue newValue) {
         this.indexedArgumentValues.put(key, newValue);
+        this.genericArgumentValues.add(newValue);
     }
 
     public boolean hasIndexedArgumentValue(int index) {
@@ -21,8 +23,8 @@ public class ArgumentValues {
         return this.indexedArgumentValues.get(index);
     }
 
-    public void addGenericArgumentValue(Object value, String type) {
-        this.genericArgumentValues.add(new ArgumentValue(value, type));
+    public void addGenericArgumentValue(Object value, String type, String name) {
+        this.genericArgumentValues.add(new ArgumentValue(type, name, value));
     }
 
     private void addGenericArgumentValue(ArgumentValue newValue) {
@@ -37,7 +39,7 @@ public class ArgumentValues {
         this.genericArgumentValues.add(newValue);
     }
 
-    public ArgumentValue getGenericArgumentValue(String requiredName) {
+    private ArgumentValue getGenericArgumentValue(String requiredName) {
         for (ArgumentValue valueHolder : this.genericArgumentValues) {
             if (valueHolder.getName() != null && (requiredName == null || !valueHolder.getName().equals(requiredName))) {
                 continue;

@@ -1,7 +1,7 @@
-package org.springframework.demo6.factory;
+package org.springframework.demo7.factory;
 
-import org.springframework.demo6.entity.*;
-import org.springframework.demo6.exception.BeansException;
+import org.springframework.demo7.entity.*;
+import org.springframework.demo7.exception.BeansException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -20,34 +20,97 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory, BeanDefinitionRegistry {
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
+    private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(256);
+
     private final List<String> beanDefinitionNames = new ArrayList<>();
 
-    @Override
-    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
-        this.beanDefinitionMap.put(name, beanDefinition);
-        this.beanDefinitionNames.add(name);
-        if (!beanDefinition.isLazyInit()) {
+    /**
+     * 将所有从xml注入的beanDefinition注册到单例Map中
+     */
+    public void refresh() {
+        for (String beanName : beanDefinitionNames) {
             try {
-                getBean(name);
+                getBean(beanName);
             } catch (BeansException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
+    @Override
+    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
+        this.beanDefinitionMap.put(name, beanDefinition);
+        this.beanDefinitionNames.add(name);
+        //这样写会强制依赖加载顺序的，不能这样写
+        //if (!beanDefinition.isLazyInit()) {
+        //    try {
+        //        getBean(name);
+        //    } catch (BeansException e) {
+        //        throw new RuntimeException(e);
+        //    }
+        //}
+    }
+
+    //getBean，容器的核心方法
+    public Object getBean(String beanName) throws BeansException {
+        //先尝试直接拿bean实例
+        if (this.containsSingleton(beanName)) {
+            return this.getSingleton(beanName);
+        }
+        //如果没有实例，则尝试从毛胚实例中获取
+        Object singleton = this.earlySingletonObjects.get(beanName);
+        if (singleton == null) {
+            //获取bean的定义
+            BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
+            if (beanDefinition == null) {
+                throw new BeansException("No bean.");
+            }
+            singleton = this.createBean(beanDefinition);
+            //新注册这个bean实例
+            this.registerSingleton(beanName, singleton);
+            // 预留beanPostProcessor位置
+            // step 1: postProcessBeforeInitialization
+            // step 2: afterPropertiesSet
+            // step 3: init-method
+            // step 4: postProcessAfterInitialization
+        }
+        return singleton;
+    }
+
     private Object createBean(BeanDefinition beanDefinition) {
+        Class<?> clz = null;
+        Object obj = this.doCreateBean(beanDefinition);
+        //存放到毛胚实例缓存中
+        this.earlySingletonObjects.put(beanDefinition.getId(), obj);
+        try {
+            clz = Class.forName(beanDefinition.getClassName());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        // 处理属性
+        this.handleProperties(beanDefinition, clz, obj);
+        return obj;
+    }
+
+    /**
+     * doCreateBean创建毛胚实例，仅仅调用构造方法，没有进行属性处理
+     *
+     * @param bd
+     * @return
+     */
+    private Object doCreateBean(BeanDefinition bd) {
         Class<?> clz = null;
         Object obj = null;
         Constructor<?> con = null;
+
         try {
-            clz = Class.forName(beanDefinition.getClassName());
-            // 处理构造器参数
-            ArgumentValues argumentValues = beanDefinition.getConstructorArgumentValues();
-            //如果有参数
+            clz = Class.forName(bd.getClassName());
+
+            //handle constructor
+            ArgumentValues argumentValues = bd.getConstructorArgumentValues();
             if (!argumentValues.isEmpty()) {
                 Class<?>[] paramTypes = new Class<?>[argumentValues.getArgumentCount()];
                 Object[] paramValues = new Object[argumentValues.getArgumentCount()];
-                //对每一个参数，分数据类型分别处理
                 for (int i = 0; i < argumentValues.getArgumentCount(); i++) {
                     ArgumentValue argumentValue = argumentValues.getIndexedArgumentValue(i);
                     if ("String".equals(argumentValue.getType()) || "java.lang.String".equals(argumentValue.getType())) {
@@ -57,29 +120,45 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                         paramTypes[i] = Integer.class;
                         paramValues[i] = Integer.valueOf((String) argumentValue.getValue());
                     } else if ("int".equals(argumentValue.getType())) {
+                        //究极坑点int.class和Integer.class必须用Class<Integer>接收，但并不代表int.class和Integer.class是一样的
                         paramTypes[i] = int.class;
                         paramValues[i] = Integer.valueOf((String) argumentValue.getValue());
-                    } else { //默认为string
+                    } else {
                         paramTypes[i] = String.class;
                         paramValues[i] = argumentValue.getValue();
                     }
                 }
 
-                //按照特定构造器创建实例
                 con = clz.getConstructor(paramTypes);
                 obj = con.newInstance(paramValues);
 
-            } else { //如果没有参数，直接创建实例
+            } else {
                 obj = clz.newInstance();
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        // 处理属性
-        this.handleProperties(beanDefinition, clz, obj);
+
+        System.out.println(bd.getId() + " bean created. " + bd.getClassName() + " : " + obj.toString());
         return obj;
+
     }
 
+    /**
+     * 处理属性
+     *
+     * @param bd
+     * @param clz
+     * @param obj
+     */
     private void handleProperties(BeanDefinition bd, Class<?> clz, Object obj) {
         // 处理属性
         System.out.println("handle properties for bean : " + bd.getId());
@@ -137,30 +216,9 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         }
     }
 
-    //getBean，容器的核心方法
-    public Object getBean(String beanName) throws BeansException {
-        //先尝试直接拿bean实例
-        if (containsBean(beanName)) {
-            return this.getSingleton(beanName);
-        }
-        //如果此时还没有这个bean的实例，则获取它的定义来创建实例
-        Object singleton;
-        //获取bean的定义
-        BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
-        if (beanDefinition == null) {
-            throw new BeansException("No bean.");
-        }
-
-        singleton = this.createBean(beanDefinition);
-
-        //新注册这个bean实例
-        this.registerSingleton(beanName, singleton);
-
-        return singleton;
-    }
 
     public Boolean containsBean(String name) {
-        return containsSingleton(name);
+        return this.containsSingleton(name);
     }
 
     @Override

@@ -1,16 +1,21 @@
-package demo3;
+package demo4;
 
-import org.springframework.demo3.ClassPathXmlApplicationContext;
-import org.springframework.demo3.exception.BeansException;
+import org.springframework.demo4.ClassPathXmlApplicationContext;
+import org.springframework.demo4.exception.BeansException;
 import org.springframework.testservice.AService;
 
+/**
+ * @author zhouruxuan
+ * @description
+ * @date 2023-04-28
+ **/
 /**
  * 1.解析xml
  * 2.注入bean
  * 3.获取bean
- * 相比于demo2，demo3实现了单例Map的存储
+ * 相比于demo3，demo4把注册beanDefinition的能力抽象了出来，将创建空壳对象与属性注入分开
  */
-public class Test3 {
+public class Test4 {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
         AService aService = null;
@@ -29,4 +34,4 @@ public class Test3 {
         }
 
     }
-} 
+}

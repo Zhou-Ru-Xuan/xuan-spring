@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id="aserviceC" class="org.springframework.testservice.AServiceImpl">
+        <constructor-arg type="String" name="name" value="abc"/>
+        <constructor-arg type="int" name="level" value="1"/>
+
+    </bean>
+
+    <bean id="aserviceP" class="org.springframework.testservice.AServiceImpl">
+        <property type="String" name="property1" value="Someone says"/>
+    </bean>
+</beans>

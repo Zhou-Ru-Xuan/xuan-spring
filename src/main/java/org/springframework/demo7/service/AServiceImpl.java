@@ -1,4 +1,4 @@
-package org.springframework.demo6.service;
+package org.springframework.demo7.service;
 
 public class AServiceImpl implements AService {
     private String name;

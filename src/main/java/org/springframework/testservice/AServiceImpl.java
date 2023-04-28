@@ -11,6 +11,14 @@ public class AServiceImpl implements AService {
 
     }
 
+    public AServiceImpl(String name) {
+        this.name = name;
+    }
+
+    public AServiceImpl(int level) {
+        this.level = level;
+    }
+
     public AServiceImpl(String name, int level) {
         this.name = name;
         this.level = level;
@@ -46,8 +54,17 @@ public class AServiceImpl implements AService {
         this.level = level;
     }
 
+    @Override
+    public String toString() {
+        return "AServiceImpl{" +
+                "property1='" + property1 + '\'' +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                '}';
+    }
+
     public void sayHello() {
-        System.out.println("a service 1 say hello");
+        System.out.println(this);
     }
 
 } 

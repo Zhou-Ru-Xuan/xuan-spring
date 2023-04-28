@@ -87,11 +87,10 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                 Class<?>[] paramTypes = new Class<?>[1];
                 if ("String".equals(pType) || "java.lang.String".equals(pType)) {
                     paramTypes[0] = String.class;
-                } else if ("Integer".equals(pType) || "java.lang.Integer".equals(pType)) {
+                } else if ("Integer".equals(pType) || "java.lang.Integer".equals(pType) || "int".equals(pType)) {
                     paramTypes[0] = Integer.class;
-                } else if ("int".equals(pType)) {
-                    paramTypes[0] = int.class;
-                } else { // 默认为string
+                } else {
+                    // 默认为string
                     paramTypes[0] = String.class;
                 }
                 Object[] paramValues = new Object[1];
@@ -129,11 +128,9 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         if (beanDefinition == null) {
             throw new BeansException("No bean.");
         }
-        try {
-            singleton = Class.forName(beanDefinition.getClassName()).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+
+        singleton = this.createBean(beanDefinition);
+
         //新注册这个bean实例
         this.registerSingleton(beanName, singleton);
 
@@ -156,7 +153,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
 
     @Override
     public Class<?> getType(String name) {
-        return this.beanDefinitionMap.get(name).getClass();
+        return (Class<?>) this.beanDefinitionMap.get(name).getBeanClass();
     }
 
     @Override

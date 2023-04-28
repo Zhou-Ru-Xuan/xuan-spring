@@ -1,4 +1,4 @@
-package org.springframework.demo6.service;
+package org.springframework.demo5.service;
 
 public class AServiceImpl implements AService {
     private String name;
@@ -10,8 +10,11 @@ public class AServiceImpl implements AService {
     public AServiceImpl() {
     }
 
-    public AServiceImpl(String name, int level) {
+    public AServiceImpl(String name) {
         this.name = name;
+    }
+
+    public AServiceImpl(int level) {
         this.level = level;
     }
 
@@ -23,19 +26,8 @@ public class AServiceImpl implements AService {
         this.ref1 = ref1;
     }
 
-    @Override
-    public String toString() {
-        return "AServiceImpl{" +
-                "name='" + name + '\'' +
-                ", level=" + level +
-                ", property1='" + property1 + '\'' +
-                ", property2='" + property2 + '\'' +
-                ", ref1=" + ref1 +
-                '}';
-    }
-
     public void sayHello() {
-        System.out.println(this);
+        System.out.println(this.property1 + "," + this.property2);
     }
 
     public String getName() {

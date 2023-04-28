@@ -16,7 +16,7 @@ import org.springframework.demo4.resource.Resource;
  * 3.读取 BeanDefinition 的配置信息，实例化 Bean，然后把它注入到 BeanFactory 容器中。
  */
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
-    BeanFactory beanFactory;
+    SimpleBeanFactory beanFactory;
 
     XmlBeanDefinitionReader reader;
 
@@ -26,7 +26,7 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     public ClassPathXmlApplicationContext(String fileName) {
         this.resource = new ClassPathXmlResource(fileName);
         this.beanFactory = new SimpleBeanFactory();
-        this.reader = new XmlBeanDefinitionReader((SimpleBeanFactory)beanFactory);
+        this.reader = new XmlBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions(resource);
     }
 

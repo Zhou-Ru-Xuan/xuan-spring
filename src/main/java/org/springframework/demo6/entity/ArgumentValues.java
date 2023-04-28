@@ -11,6 +11,7 @@ public class ArgumentValues {
 
     public void addArgumentValue(Integer key, ArgumentValue newValue) {
         this.indexedArgumentValues.put(key, newValue);
+        this.genericArgumentValues.add(newValue);
     }
 
     public boolean hasIndexedArgumentValue(int index) {
@@ -27,8 +28,7 @@ public class ArgumentValues {
 
     private void addGenericArgumentValue(ArgumentValue newValue) {
         if (newValue.getName() != null) {
-            for (Iterator<ArgumentValue> it =
-                 this.genericArgumentValues.iterator(); it.hasNext(); ) {
+            for (Iterator<ArgumentValue> it = this.genericArgumentValues.iterator(); it.hasNext(); ) {
                 ArgumentValue currentValue = it.next();
                 if (newValue.getName().equals(currentValue.getName())) {
                     it.remove();
@@ -38,7 +38,7 @@ public class ArgumentValues {
         this.genericArgumentValues.add(newValue);
     }
 
-    public ArgumentValue getGenericArgumentValue(String requiredName) {
+    private ArgumentValue getGenericArgumentValue(String requiredName) {
         for (ArgumentValue valueHolder : this.genericArgumentValues) {
             if (valueHolder.getName() != null && (requiredName == null || !valueHolder.getName().equals(requiredName))) {
                 continue;

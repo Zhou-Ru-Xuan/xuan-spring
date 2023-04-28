@@ -1,13 +1,13 @@
-package org.springframework.demo6;
+package org.springframework.demo7;
 
-import org.springframework.demo6.event.ApplicationEvent;
-import org.springframework.demo6.event.ApplicationEventPublisher;
-import org.springframework.demo6.exception.BeansException;
-import org.springframework.demo6.factory.BeanFactory;
-import org.springframework.demo6.factory.SimpleBeanFactory;
-import org.springframework.demo6.reader.XmlBeanDefinitionReader;
-import org.springframework.demo6.resource.ClassPathXmlResource;
-import org.springframework.demo6.resource.Resource;
+import org.springframework.demo7.event.ApplicationEvent;
+import org.springframework.demo7.event.ApplicationEventPublisher;
+import org.springframework.demo7.exception.BeansException;
+import org.springframework.demo7.factory.BeanFactory;
+import org.springframework.demo7.factory.SimpleBeanFactory;
+import org.springframework.demo7.reader.XmlBeanDefinitionReader;
+import org.springframework.demo7.resource.ClassPathXmlResource;
+import org.springframework.demo7.resource.Resource;
 
 /**
  * 1.解析 XML 文件中的内容。
@@ -21,12 +21,19 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
 
     Resource resource;
 
-    //context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
     public ClassPathXmlApplicationContext(String fileName) {
+        this(fileName, true);
+    }
+
+    //context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
+    public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         this.resource = new ClassPathXmlResource(fileName);
         this.beanFactory = new SimpleBeanFactory();
         this.reader = new XmlBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions(resource);
+        if (isRefresh) {
+            this.beanFactory.refresh();
+        }
     }
 
     @Override
