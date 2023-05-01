@@ -1,8 +1,8 @@
 package demo2;
 
-import org.springframework.demo2.ClassPathXmlApplicationContext;
-import org.springframework.demo2.exception.BeansException;
-import org.springframework.testservice.AService;
+import org.springframeworkdemo.demo2.ClassPathXmlApplicationContext;
+import org.springframeworkdemo.demo2.exception.BeansException;
+import org.springframeworkdemo.testservice.AService;
 
 /**
  * 1.解析xml

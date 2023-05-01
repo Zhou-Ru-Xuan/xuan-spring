@@ -1,8 +1,8 @@
 package demo5;
 
-import org.springframework.demo5.ClassPathXmlApplicationContext;
-import org.springframework.demo5.exception.BeansException;
-import org.springframework.testservice.AService;
+import org.springframeworkdemo.demo5.ClassPathXmlApplicationContext;
+import org.springframeworkdemo.demo5.exception.BeansException;
+import org.springframeworkdemo.testservice.AService;
 
 /**
  * @author zhouruxuan

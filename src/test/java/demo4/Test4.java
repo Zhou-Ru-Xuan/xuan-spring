@@ -1,8 +1,8 @@
 package demo4;
 
-import org.springframework.demo4.ClassPathXmlApplicationContext;
-import org.springframework.demo4.exception.BeansException;
-import org.springframework.testservice.AService;
+import org.springframeworkdemo.demo4.ClassPathXmlApplicationContext;
+import org.springframeworkdemo.demo4.exception.BeansException;
+import org.springframeworkdemo.testservice.AService;
 
 /**
  * @author zhouruxuan

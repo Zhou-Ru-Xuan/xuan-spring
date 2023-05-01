@@ -1,8 +1,8 @@
 package demo6;
 
-import org.springframework.demo6.ClassPathXmlApplicationContext;
-import org.springframework.demo6.exception.BeansException;
-import org.springframework.demo6.service.AService;
+import org.springframeworkdemo.demo6.ClassPathXmlApplicationContext;
+import org.springframeworkdemo.demo6.exception.BeansException;
+import org.springframeworkdemo.demo6.service.AService;
 
 /**
  * @author zhouruxuan

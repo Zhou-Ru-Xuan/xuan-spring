@@ -1,7 +1,7 @@
 package demo1;
 
-import org.springframework.demo1.ClassPathXmlApplicationContext;
-import org.springframework.testservice.AService;
+import org.springframeworkdemo.demo1.ClassPathXmlApplicationContext;
+import org.springframeworkdemo.testservice.AService;
 
 /**
  * 1.解析xml

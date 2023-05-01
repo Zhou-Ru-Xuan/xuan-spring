@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans>
-    <bean id="aservice" class="org.springframework.testservice.AServiceImpl">
+    <bean id="aservice" class="org.springframeworkdemo.testservice.AServiceImpl">
 
     </bean>
 </beans>

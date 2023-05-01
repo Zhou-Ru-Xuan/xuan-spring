@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans>
-    <bean id="baseService" class="org.springframework.demo8.service.BaseService">
-<!--        <property type="org.springframework.demo8.service.AServiceImpl" name="service" ref="service"/>-->
+    <bean id="baseService" class="org.springframeworkdemo.demo8.service.BaseService">
+<!--        <property type="org.springframeworkdemo.demo8.service.AServiceImpl" name="service" ref="service"/>-->
     </bean>
 
-    <bean id="service" class="org.springframework.demo8.service.AServiceImpl">
+    <bean id="service" class="org.springframeworkdemo.demo8.service.AServiceImpl">
         <constructor-arg type="String" name="name" value="abc"/>
         <constructor-arg type="int" name="level" value="3"/>
         <property type="String" name="property1" value="Someone says"/>
         <property type="String" name="property2" value="Hello World!"/>
-        <!--        <property type="org.springframework.demo8.service.BaseService" name="baseService" ref="baseService"/>-->
+        <!--        <property type="org.springframeworkdemo.demo8.service.BaseService" name="baseService" ref="baseService"/>-->
     </bean>
 </beans>
