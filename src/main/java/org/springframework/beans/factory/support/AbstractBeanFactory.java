@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author zhouruxuan
  * @description
  * @date 2023-05-01
@@ -29,6 +28,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
         BeanDefinition beanDefinition = getBeanDefinition(name);
         return createBean(name, beanDefinition);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return ((T) getBean(name));
     }
 
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition) throws BeansException;

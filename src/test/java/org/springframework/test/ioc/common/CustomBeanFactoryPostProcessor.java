@@ -11,11 +11,12 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
  * @author zhouruxuan
  * @description
  * @date 2023-05-01
- */
+ **/
 public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		System.out.println("CustomBeanFactoryPostProcessor#postProcessBeanFactory");
 		BeanDefinition personBeanDefiniton = beanFactory.getBeanDefinition("person");
 		PropertyValues propertyValues = personBeanDefiniton.getPropertyValues();
 		//将person的name属性改为ivy

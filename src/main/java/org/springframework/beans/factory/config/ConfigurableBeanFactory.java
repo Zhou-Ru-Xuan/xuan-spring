@@ -1,16 +1,16 @@
 package org.springframework.beans.factory.config;
 
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.HierarchicalBeanFactory;
 
 /**
  * @author zhouruxuan
  * @description
  * @date 2023-05-01
- */
-public interface ConfigurableBeanFactory extends BeanFactory, SingletonBeanRegistry {
+ **/
+public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, SingletonBeanRegistry {
 
-	/**
-	 * @param beanPostProcessor
-	 */
-	void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
+    /**
+     * @param beanPostProcessor
+     */
+    void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
 }
