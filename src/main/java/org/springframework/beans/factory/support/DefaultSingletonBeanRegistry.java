@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 单例仓库的实现类，用于存储单例实例
+ *
  * @author zhouruxuan
  * @description
  * @date 2023-05-01

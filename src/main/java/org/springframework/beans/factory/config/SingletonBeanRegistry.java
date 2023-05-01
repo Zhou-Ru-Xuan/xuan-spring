@@ -1,7 +1,7 @@
 package org.springframework.beans.factory.config;
 
 /**
- * 注册单例
+ * 单例仓库
  *
  * @author zhouruxuan
  * @description
