@@ -10,7 +10,7 @@ import org.springframeworkdemo.testservice.AService;
  * @date 2023-04-28
  **/
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo3，demo4把注册beanDefinition的能力抽象了出来，将创建空壳对象与属性注入分开

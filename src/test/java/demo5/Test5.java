@@ -11,7 +11,7 @@ import org.springframeworkdemo.testservice.AService;
  **/
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo4，demo5可以将解析的属性注入到bean中返回

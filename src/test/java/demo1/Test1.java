@@ -4,7 +4,7 @@ import org.springframeworkdemo.demo1.ClassPathXmlApplicationContext;
 import org.springframeworkdemo.testservice.AService;
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  */

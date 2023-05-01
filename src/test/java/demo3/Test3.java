@@ -5,7 +5,7 @@ import org.springframeworkdemo.demo3.exception.BeansException;
 import org.springframeworkdemo.testservice.AService;
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo2，demo3实现了单例Map的存储

@@ -11,7 +11,7 @@ import org.springframeworkdemo.demo7.service.AService;
  **/
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo6，demo7可以解决循环依赖的问题

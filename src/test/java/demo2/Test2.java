@@ -5,7 +5,7 @@ import org.springframeworkdemo.demo2.exception.BeansException;
 import org.springframeworkdemo.testservice.AService;
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo1，demo2重构了各部分

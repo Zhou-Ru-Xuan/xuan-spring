@@ -11,7 +11,7 @@ import org.springframeworkdemo.demo6.service.AService;
  **/
 
 /**
- * 1.解析xml
+ * init-and-destroy-method.xml.解析xml
  * 2.注入bean
  * 3.获取bean
  * 相比于demo5，demo6的属性可以注入别的bean
