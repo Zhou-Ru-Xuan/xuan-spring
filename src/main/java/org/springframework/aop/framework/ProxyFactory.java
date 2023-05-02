@@ -5,10 +5,7 @@ import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.framework.CglibAopProxy;
 import org.springframework.aop.framework.JdkDynamicAopProxy;
 
-/**
- * @author derekyi
- * @date 2020/12/6
- */
+ 
 public class ProxyFactory {
 
 	private AdvisedSupport advisedSupport;
