@@ -1,9 +1,9 @@
-package org.springframework.test.ioc.common;
+package org.springframework.test.common;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.test.ioc.bean.Car;
+import org.springframework.test.bean.Car;
 
 @Getter
 @Setter
